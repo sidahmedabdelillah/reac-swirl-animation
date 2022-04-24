@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/reac-swirl-animation/static/css/main.073c9b0a.css",
-    "main.js": "/reac-swirl-animation/static/js/main.0dd0fb8d.js",
+    "main.css": "/reac-swirl-animation/static/css/main.02975b7a.css",
+    "main.js": "/reac-swirl-animation/static/js/main.5404ca98.js",
     "static/js/787.1716899b.chunk.js": "/reac-swirl-animation/static/js/787.1716899b.chunk.js",
     "index.html": "/reac-swirl-animation/index.html",
-    "main.073c9b0a.css.map": "/reac-swirl-animation/static/css/main.073c9b0a.css.map",
-    "main.0dd0fb8d.js.map": "/reac-swirl-animation/static/js/main.0dd0fb8d.js.map",
+    "main.02975b7a.css.map": "/reac-swirl-animation/static/css/main.02975b7a.css.map",
+    "main.5404ca98.js.map": "/reac-swirl-animation/static/js/main.5404ca98.js.map",
     "787.1716899b.chunk.js.map": "/reac-swirl-animation/static/js/787.1716899b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.0dd0fb8d.js"
+    "static/css/main.02975b7a.css",
+    "static/js/main.5404ca98.js"
   ]
 }
