@@ -3,40 +3,62 @@ import { useRef, useState, useEffect } from 'react'
 
 import { useWindowSize } from '@react-hook/window-size'
 import SimplexNoise from 'simplex-noise'
+export interface SwirlPropTypes {
+  particleCount?: number
+  particlePropCount?: number
+  rangeY?: number
+  baseTTL?: number
+  rangeTTL?: number
+  baseSpeed?: number
+  rangeSpeed?: number
+  baseRadius?: number
+  rangeRadius?: number
+  baseHue?: number
+  rangeHue?: number
+  noiseSteps?: number
+  xOff?: number
+  yOff?: number
+  zOff?: number
+  backgroundColor?: 'hsla(260,40%,5%,1)'
+}
 
-const particleCount = 700
-const particlePropCount = 9
-const particlePropsLength = particleCount * particlePropCount
-const rangeY = 100
-const baseTTL = 50
-const rangeTTL = 150
-const baseSpeed = 0.1
-const rangeSpeed = 2
-const baseRadius = 1
-const rangeRadius = 4
-const baseHue = 220
-const rangeHue = 100
-const noiseSteps = 8
-const xOff = 0.00125
-const yOff = 0.00125
-const zOff = 0.0005
-const backgroundColor = 'hsla(260,40%,5%,1)'
+const particlePropCount = 9;
 
-const Swirl = () => {
+const Swirl = ({
+  particleCount = 700,
+  rangeY = 100,
+  baseTTL = 50,
+  rangeTTL = 150,
+  baseSpeed = 0.1,
+  rangeSpeed = 2,
+  baseRadius = 1,
+  rangeRadius = 4,
+  baseHue = 220,
+  rangeHue = 100,
+  noiseSteps = 8,
+  xOff = 0.00125,
+  yOff = 0.00125,
+  zOff = 0.0005,
+  backgroundColor = 'hsla(260,40%,5%,1)',
+}: SwirlPropTypes) => {
   const canvasARef = useRef<HTMLCanvasElement>(null)
   const canvasBRef = useRef<HTMLCanvasElement>(null)
-
   const [windowWidth, windowHeight] = useWindowSize()
 
-  // const [ canvasAContex , setCanvasAContex ] = useState<CanvasRenderingContext2D | null>(null) ;
-  // const [ canvasBContex , setCanvasBContex ] = useState<CanvasRenderingContext2D | null>(null) ;
-
-  const [center, setCenter] = useState<number[]>([])
+  const [center] = useState<number[]>([])
   const [tick, setTick] = useState(0)
-  const [simplex, setSimplex] = useState(new SimplexNoise())
+  const [simplex] = useState(new SimplexNoise())
+  const [particlePropsLength, setParticlePropsLength] = useState(
+    particleCount * particlePropCount
+  )
   const [particleProps, setParticleProps] = useState(
     new Float32Array(particlePropsLength)
   )
+
+  useEffect(() => {
+    setParticlePropsLength(particleCount * particlePropCount)
+    setParticleProps(new Float32Array(particlePropsLength))
+  }, [particleCount, particlePropCount])
 
   useEffect(() => {
     if (!canvasARef.current || !canvasBRef.current) {
@@ -44,14 +66,51 @@ const Swirl = () => {
       return
     }
     for (let i = 0; i < particlePropsLength; i += particlePropCount) {
-      initParticle(canvasARef.current, particleProps, center, i)
+      initParticle(
+        canvasARef.current,
+        particleProps,
+        center,
+        i,
+        rangeY,
+        baseTTL,
+        rangeTTL,
+        baseSpeed,
+        rangeSpeed,
+        baseRadius,
+        rangeRadius,
+        baseHue,
+        rangeHue
+      )
     }
 
     if (!canvasARef.current || !canvasBRef.current) {
       return
     }
 
-    draw(canvasARef,canvasBRef,particleProps,center,simplex,tick)
+    draw(
+      canvasARef,
+      canvasBRef,
+      particleProps,
+      center,
+      simplex,
+      tick,
+      backgroundColor,
+      particlePropsLength,
+      particlePropCount,
+      xOff,
+      yOff,
+      zOff,
+      noiseSteps,
+      rangeY,
+      baseTTL,
+      rangeTTL,
+      baseSpeed,
+      rangeSpeed,
+      baseRadius,
+      rangeRadius,
+      baseHue,
+      rangeHue
+    )
     setTick(tick => tick + 1)
   }, [])
 
@@ -105,7 +164,23 @@ function draw(
   particleProps: Float32Array,
   center: number[],
   simplex: SimplexNoise,
-  tick: number
+  tick: number,
+  backgroundColor: string,
+  particlePropsLength: number,
+  particlePropCount: number,
+  xOff: number,
+  yOff: number,
+  zOff: number,
+  noiseSteps: number,
+  rangeY: number,
+  baseTTL: number,
+  rangeTTL: number,
+  baseSpeed: number,
+  rangeSpeed: number,
+  baseRadius: number,
+  rangeRadius: number,
+  baseHue: number,
+  rangeHue: number
 ) {
   if (!canvasARef.current || !canvasBRef.current) {
     return
@@ -129,19 +204,68 @@ function draw(
     particleProps,
     center,
     simplex,
-    tick
+    tick,
+    particlePropsLength,
+    particlePropCount,
+    xOff,
+    yOff,
+    zOff,
+    noiseSteps,
+    rangeY,
+    baseTTL,
+    rangeTTL,
+    baseSpeed,
+    rangeSpeed,
+    baseRadius,
+    rangeRadius,
+    baseHue,
+    rangeHue
   )
   renderGlow(canvasARef.current, contextB)
   renderToScreen(canvasARef.current, contextB)
 
-  window.requestAnimationFrame(() => draw(canvasARef,canvasBRef,particleProps,center,simplex,tick))
+  window.requestAnimationFrame(() =>
+    draw(
+      canvasARef,
+      canvasBRef,
+      particleProps,
+      center,
+      simplex,
+      tick,
+      backgroundColor,
+      particlePropsLength,
+      particlePropCount,
+      xOff,
+      yOff,
+      zOff,
+      noiseSteps,
+      rangeY,
+      baseTTL,
+      rangeTTL,
+      baseSpeed,
+      rangeSpeed,
+      baseRadius,
+      rangeRadius,
+      baseHue,
+      rangeHue
+    )
+  )
 }
 
 function initParticle(
   canvasA: HTMLCanvasElement,
   particleProps: Float32Array,
   center: number[],
-  i: number
+  i: number,
+  rangeY: number,
+  baseTTL: number,
+  rangeTTL: number,
+  baseSpeed: number,
+  rangeSpeed: number,
+  baseRadius: number,
+  rangeRadius: number,
+  baseHue: number,
+  rangeHue: number
 ) {
   const x = rand(canvasA.width)
   const y = center[1] + randRange(rangeY)
@@ -162,12 +286,48 @@ function drawParticles(
   particleProps: Float32Array,
   center: number[],
   simplex: SimplexNoise,
-  tick: number
+  tick: number,
+  particlePropsLength: number,
+  particlePropCount: number,
+  xOff: number,
+  yOff: number,
+  zOff: number,
+  noiseSteps: number,
+  rangeY: number,
+  baseTTL: number,
+  rangeTTL: number,
+  baseSpeed: number,
+  rangeSpeed: number,
+  baseRadius: number,
+  rangeRadius: number,
+  baseHue: number,
+  rangeHue: number
 ) {
   let i
 
   for (i = 0; i < particlePropsLength; i += particlePropCount) {
-    updateParticle(canvasA, contextA, particleProps, center, simplex, tick, i)
+    updateParticle(
+      canvasA,
+      contextA,
+      particleProps,
+      center,
+      simplex,
+      tick,
+      i,
+      xOff,
+      yOff,
+      zOff,
+      noiseSteps,
+      rangeY,
+      baseTTL,
+      rangeTTL,
+      baseSpeed,
+      rangeSpeed,
+      baseRadius,
+      rangeRadius,
+      baseHue,
+      rangeHue
+    )
   }
 }
 
@@ -178,7 +338,20 @@ function updateParticle(
   center: number[],
   simplex: SimplexNoise,
   tick: number,
-  i: number
+  i: number,
+  xOff: number,
+  yOff: number,
+  zOff: number,
+  noiseSteps: number,
+  rangeY: number,
+  baseTTL: number,
+  rangeTTL: number,
+  baseSpeed: number,
+  rangeSpeed: number,
+  baseRadius: number,
+  rangeRadius: number,
+  baseHue: number,
+  rangeHue: number
 ) {
   let i2 = 1 + i,
     i3 = 2 + i,
@@ -212,9 +385,22 @@ function updateParticle(
   particleProps[i3] = vx
   particleProps[i4] = vy
   particleProps[i5] = life
-
   ;(checkBounds(canvasA, x, y) || life > ttl) &&
-    initParticle(canvasA, particleProps, center, i)
+    initParticle(
+      canvasA,
+      particleProps,
+      center,
+      i,
+      rangeY,
+      baseTTL,
+      rangeTTL,
+      baseSpeed,
+      rangeSpeed,
+      baseRadius,
+      rangeRadius,
+      baseHue,
+      rangeHue
+    )
 }
 
 function drawParticle(
@@ -240,7 +426,7 @@ function drawParticle(
   contextA.restore()
 }
 
-function checkBounds(canvasA: HTMLCanvasElement, x:number, y:number) {
+function checkBounds(canvasA: HTMLCanvasElement, x: number, y: number) {
   return x > canvasA.width || x < 0 || y > canvasA.height || y < 0
 }
 
@@ -272,23 +458,13 @@ function renderToScreen(
 }
 
 // utils
-const { PI, cos, sin, abs, sqrt, pow, round, random, atan2 } = Math
-const HALF_PI = 0.5 * PI
+const { PI, cos, sin, abs, random } = Math
 const TAU = 2 * PI
-const TO_RAD = PI / 180
-const floor = (n: number) => n | 0
 const rand = (n: number) => n * random()
-const randIn = (min: number, max: number) => rand(max - min) + min
 const randRange = (n: number) => n - rand(2 * n)
-const fadeIn = (t: number, m: number) => t / m
-const fadeOut = (t: number, m: number) => (m - t) / m
 const fadeInOut = (t: number, m: number) => {
   let hm = 0.5 * m
   return abs(((t + hm) % m) - hm) / hm
 }
-const dist = (x1: number, y1: number, x2: number, y2: number) =>
-  sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2))
-const angle = (x1: number, y1: number, x2: number, y2: number) =>
-  atan2(y2 - y1, x2 - x1)
 const lerp = (n1: number, n2: number, speed: number) =>
   (1 - speed) * n1 + speed * n2
