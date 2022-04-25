@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/reac-swirl-animation/static/css/main.6b82858f.css",
-    "main.js": "/reac-swirl-animation/static/js/main.d9f8324b.js",
+    "main.js": "/reac-swirl-animation/static/js/main.09588c6a.js",
     "static/js/787.1716899b.chunk.js": "/reac-swirl-animation/static/js/787.1716899b.chunk.js",
     "static/media/primeicons.svg": "/reac-swirl-animation/static/media/primeicons.c6e2053303524e39530c.svg",
     "static/media/primeicons.eot": "/reac-swirl-animation/static/media/primeicons.7fc4d8e224d1ff1b9c62.eot",
@@ -9,11 +9,11 @@
     "static/media/primeicons.ttf": "/reac-swirl-animation/static/media/primeicons.91bacab1f083f2795272.ttf",
     "index.html": "/reac-swirl-animation/index.html",
     "main.6b82858f.css.map": "/reac-swirl-animation/static/css/main.6b82858f.css.map",
-    "main.d9f8324b.js.map": "/reac-swirl-animation/static/js/main.d9f8324b.js.map",
+    "main.09588c6a.js.map": "/reac-swirl-animation/static/js/main.09588c6a.js.map",
     "787.1716899b.chunk.js.map": "/reac-swirl-animation/static/js/787.1716899b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6b82858f.css",
-    "static/js/main.d9f8324b.js"
+    "static/js/main.09588c6a.js"
   ]
 }
