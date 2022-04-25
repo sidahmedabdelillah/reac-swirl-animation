@@ -16,19 +16,32 @@ const pipePropCount = 8
 let pipesTick = 0
 
 export interface PipeLineProps {
+  /** Number of pipes */
   pipeCount?: number
+  /** Possible direction of turns 4 is Up,Down,Left,Rigth and do the math on that */
   turnCount?: number
+  /** The chance of a pipe turning the higher the more swiggely it gets */
   turnChanceRange?: number
+  /** The initial speed of the pipe */
   baseSpeed?: number
+  /** How extra speed can it get */
   rangeSpeed?: number
+  /** Base life span of a pipe */
   baseTTL?: number
+  /** How much extra life can a pipe get */
   rangeTTL?: number
+  /** The initial width of a pipe */
   baseWidth?: number
+  /** How much extra width can it get */
   rangeWidth?: number
+  /** The initial Hue of the pipes */
   baseHue?: number
+  /** The maximum amount that could be added to the base hue value  */
   rangeHue?: number
+  /** Animation backgroud color */
   backgroundColor?: string
-  containerClass?: string
+  /** Class name for the container */
+  containerClass?: string,
 }
 
 const PipeLine = ({
@@ -45,7 +58,7 @@ const PipeLine = ({
   rangeHue = 60,
   backgroundColor = 'hsla(150,80%,1%,1)',
   containerClass="",
-}: PipeLineProps) => {
+}: PipeLineProps ) => {
   const canvasARef = useRef<HTMLCanvasElement>(null)
   const canvasBRef = useRef<HTMLCanvasElement>(null)
 
@@ -57,19 +70,35 @@ const PipeLine = ({
   const [turnAmount, setTurnAmount] = useState((360 / turnCount) * TO_RAD)
 
   const [center] = useState<number[]>([])
-  const [pipeProps] = useState(new Float32Array(pipePropsLength))
+  const [pipeProps, setPipeProps] = useState(new Float32Array(pipePropsLength))
 
+
+
+  useEffect(() => {
+    if(canvasARef.current){
+      const context = canvasARef.current.getContext('2d')
+      if(context){
+        context.clearRect(0,0,canvasARef.current.width,canvasARef.current.height)
+      }
+    }
+    if(canvasBRef.current){
+      const context = canvasBRef.current.getContext('2d')
+      if(context){
+        context.clearRect(0,0,canvasBRef.current.width,canvasBRef.current.height)
+      }
+    }
+  },[backgroundColor])
   useEffect(() => {
     setTurnAmount((360 / turnCount) * TO_RAD)
   }, [turnCount])
 
   useEffect(() => {
     setPipePropsLength(pipeCount * pipePropCount)
+    setPipeProps(new Float32Array(pipeCount * pipePropCount))
   }, [pipeCount])
 
   useEffect(() => {
     if (!canvasARef.current || !canvasBRef.current) {
-      console.log('returned here')
       return
     }
 
@@ -77,7 +106,6 @@ const PipeLine = ({
     const contexB = canvasBRef.current.getContext('2d')
 
     if (!contexB || !contexA) {
-      console.log('returned here')
       return
     }
 

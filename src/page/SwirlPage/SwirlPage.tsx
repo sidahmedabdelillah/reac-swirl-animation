@@ -1,5 +1,6 @@
 import React from 'react'
-import Swirl from '../../components/Swirl'
+
+import { Swirl } from 'react-ambient-canvas-backgrounds'
 import './SwirlPage.css'
 
 const SwirlPage = () => {
