@@ -11,7 +11,7 @@ const baseName = process.env.NODE_ENV === 'production' ?  process.env.PUBLIC_URL
 function App() {
 
   return (
-    <BrowserRouter basename={baseName} >
+    <BrowserRouter  >
       <div className='App relative'>
         <TopBar />
         <Routes>
