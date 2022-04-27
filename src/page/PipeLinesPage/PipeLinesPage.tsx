@@ -13,7 +13,7 @@ import  { PipeLinesRef, PipeLines } from 'react-ambient-canvas-backgrounds'
 const PipeLinesPage: React.FC = () => {
   const [isSideBarVisible, setIsSideBarVisible] = useState(false)
 
-  const [pipeCount, setPipeCount] = useState(1)
+  const [pipeCount, setPipeCount] = useState(30)
   const [turnCount, setTurnCount] = useState(8)
   const [turnChanceRange, setTurnChanceRange] = useState(70)
   const [baseSpeed, setBaseSpeed] = useState(0.5)

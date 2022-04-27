@@ -1,8 +1,7 @@
 {
   "name": "cool-animations",
   "version": "0.1.0",
-  "private": true,
-  "homepage": "https://sidahmedabdelillah.github.io/reac-swirl-animation",
+  "private": false,
   "dependencies": {
     "@react-hook/window-size": "^3.0.7",
     "@testing-library/jest-dom": "^5.16.4",
@@ -24,12 +23,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "REACT_APP_ENV=production react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "REACT_APP_ENV=production gh-pages -d build"
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
