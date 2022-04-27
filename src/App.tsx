@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, HashRouter } from 'react-router-dom'
 import './App.css'
 import TopBar from './components/TopBar'
 
@@ -10,7 +10,6 @@ const baseName = process.env.NODE_ENV === 'production' ?  process.env.PUBLIC_URL
 
 function App() {
 
-  console.log(process.env)
   return (
     <BrowserRouter basename={baseName} >
       <div className='App relative'>

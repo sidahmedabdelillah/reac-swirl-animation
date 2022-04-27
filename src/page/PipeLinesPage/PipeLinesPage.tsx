@@ -5,14 +5,15 @@ import { Button } from 'primereact/button'
 import { InputNumber } from 'primereact/inputnumber'
 import { ColorPicker } from 'primereact/colorpicker';
 import { Tooltip } from 'primereact/tooltip'
-import { Toast } from 'primereact/toast'
 
-// import { PipeLines } from 'react-ambient-canvas-backgrounds'
-import PipeLine from '../../components/PipeLine'
+
+
+// import { PipeLines } from 
+import  { PipeLinesRef, PipeLines } from 'react-ambient-canvas-backgrounds'
 const PipeLinesPage: React.FC = () => {
   const [isSideBarVisible, setIsSideBarVisible] = useState(false)
 
-  const [pipeCount, setPipeCount] = useState(30)
+  const [pipeCount, setPipeCount] = useState(1)
   const [turnCount, setTurnCount] = useState(8)
   const [turnChanceRange, setTurnChanceRange] = useState(70)
   const [baseSpeed, setBaseSpeed] = useState(0.5)
@@ -25,6 +26,16 @@ const PipeLinesPage: React.FC = () => {
   const [rangeHue, setRangeHue] = useState(60)
   const [backgroundColor, setBackgroundColor] = useState('hsla(150,80%,1%,1)')
 
+  const PipeLinesRef = useRef<PipeLinesRef>(null);
+
+
+
+  const rerender =  () => {
+    if(PipeLinesRef.current){
+      console.log('rerender')
+      PipeLinesRef.current.rerender()
+        }
+  }
 
   return (
     <>
@@ -39,6 +50,7 @@ const PipeLinesPage: React.FC = () => {
         onHide={() => setIsSideBarVisible(false)}
       >
         <Tooltip target='.custom-target-icon' content='' />
+        <Button onClick={rerender} >Rerender </Button>
         <h1 className='title-font text-xl text-gray-900 mb-3 font-bold'>
           PipeLines Animation Props
         </h1>
@@ -246,7 +258,7 @@ const PipeLinesPage: React.FC = () => {
 
       </Sidebar>
 
-      <PipeLine
+      <PipeLines
         pipeCount={pipeCount}
         turnCount={turnCount}
         turnChanceRange={turnChanceRange}
@@ -259,6 +271,7 @@ const PipeLinesPage: React.FC = () => {
         baseHue={baseHue}
         rangeHue={rangeHue}
         backgroundColor={backgroundColor}
+        ref={PipeLinesRef}
       />
     </>
   )

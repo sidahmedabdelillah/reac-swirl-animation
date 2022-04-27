@@ -15,7 +15,7 @@
     "primeicons": "^5.0.0",
     "primereact": "^8.0.0",
     "react": "^18.0.0",
-    "react-ambient-canvas-backgrounds": "file:react-ambient-canvas-backgrounds-1.0.4.tgz",
+    "react-ambient-canvas-backgrounds": "^1.2.1",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
